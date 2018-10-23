@@ -24,6 +24,7 @@ mongoose.connect('mongodb://localhost/logindb', { useNewUrlParser: true } );
 //passport
 var passport = require('passport');
 var session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 app.use(session({
     name: 'myname.sid',   // custom name
@@ -34,7 +35,8 @@ app.use(session({
         maxAge: 36000000,  // one day in milisecond
         httpOnly:false,  
         secure: false
-    }
+    },
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
  
 require('./passport-config')  // require the passport configration file before initializing
