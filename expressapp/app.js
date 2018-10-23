@@ -19,7 +19,7 @@ app.use(cors({
 
 // mongoose connectivity
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/logindb');
+mongoose.connect('mongodb://localhost/logindb', { useNewUrlParser: true } );
 
 //passport
 var passport = require('passport');

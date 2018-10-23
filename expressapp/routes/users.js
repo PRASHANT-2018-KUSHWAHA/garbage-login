@@ -10,8 +10,9 @@ var passport = require('passport');
 
 router.post('/register',function(req,res,next){
   addToDb(req,res);
-})
+});
 
+// saving mondodb data using async function
 async function addToDb(req,res){
 
   var  user = new User({
@@ -43,5 +44,22 @@ router.post('/login',function(req,res,next){
     });
   })(req, res, next);   
 });
+
+router.get("/home",isValidUser,function(req,res,next){
+  console.log(req.user);
+  return res.status(200).json(req.user);  //req.user is a deserialize function will work which we define in passport and it will attached the user 
+});
+
+router.get('/logout',isValidUser,function(req,res,next){
+  req.logout();  // provided by passport.js
+  return res.status(200).json({message: 'Logout success' });
+})
+
+//validation function with the help of passport 
+function isValidUser(req,res,next){
+  
+  if(req.isAuthenticated()) next(); // isAuthenticated is a function provided by passport.js
+  else return res.status(401).json({message: 'Unauthorised Request'});
+}
 
 module.exports = router;
