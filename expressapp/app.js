@@ -16,8 +16,32 @@ app.use(cors({
     credentials:true
 }))
 
+
+// mongoose connectivity
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/logindb');
+
+//passport
+var passport = require('passport');
+var session = require('express-session');
+
+app.use(session({
+    name: 'myname.sid',   // custom name
+    resave: false,       //  we do not want to save the object for every request 
+    saveUninitialized: false,   // we do not want to save the session untill a successfull login by pasport.js
+    secret: 'secret',
+    cookie: {
+        maxAge: 36000000,  // one day in milisecond
+        httpOnly:false,  
+        secure: false
+    }
+}));
+ 
+require('./passport-config')  // require the passport configration file before initializing
+
+app.use(passport.initialize());  // before initializing we have to configer passpoet first
+app.use(passport.session());  //
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
