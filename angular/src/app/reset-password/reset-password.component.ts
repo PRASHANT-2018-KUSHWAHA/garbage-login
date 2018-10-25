@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -7,9 +10,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResetPasswordComponent implements OnInit {
 
-  constructor() { }
+
+  resetPasswordForm: FormGroup = new FormGroup ({
+    email: new FormControl(null, [Validators.email, Validators.required]),
+    password: new FormControl(null, [Validators.required]),
+    newPassword: new FormControl(null, [Validators.required])
+  });
+
+  constructor(private _router: Router, private _user: UserService) { }
 
   ngOnInit() {
   }
 
+  moveToRegister() {
+    this._router.navigate(['/register']);
+  }
+  moveToForgotUsername() {
+    this._router.navigate(['/forgotUsername']);
+  }
+  moveToLogin() {
+    this._router.navigate(['/login']);
+  }
+
+
+
+  resetPassword() {
+    // tslint:disable-next-line:triple-equals
+    if (!this.resetPasswordForm.valid) {
+           console.log('Invalid form details');
+           return;
+    }
+    // console.log(JSON.stringify(this.loginForm.value));
+    this._user.reset(JSON.stringify(this.resetPasswordForm.value))
+    .subscribe(
+      data => { console.log(data); this._router.navigate(['/login']); } ,
+      error => console.error(error)
+    // tslint:disable-next-line:semicolon
+    )
+  }
 }
