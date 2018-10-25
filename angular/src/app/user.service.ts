@@ -39,4 +39,11 @@ export class UserService {
       headers: new HttpHeaders().append('Content-Type', 'application/json')
     });
   }
+  forgot(body: any) {
+    return this._http.post('http://127.0.0.1:3000/users/forgotUsername', body, {
+      observe: 'body', // so that httpclient class look for body  not the complete response
+      withCredentials: true,  // without this cooki will not sent to the browser because in app.js file in cors we define credentials: true
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
+  }
 }

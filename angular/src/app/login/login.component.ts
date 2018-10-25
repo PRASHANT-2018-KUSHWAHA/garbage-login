@@ -24,6 +24,12 @@ export class LoginComponent implements OnInit {
   moveToRegister() {
     this._router.navigate(['/register']);
   }
+  moveToResetPassword() {
+    this._router.navigate(['/resetPassword']);
+  }
+  moveToForgotUsername() {
+    this._router.navigate(['/forgotUsername']);
+  }
 
   login() {
     // tslint:disable-next-line:triple-equals

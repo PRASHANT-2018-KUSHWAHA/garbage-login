@@ -16,7 +16,6 @@ app.use(cors({
     credentials:true
 }))
 
-
 // mongoose connectivity
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/logindb', { useNewUrlParser: true } );
@@ -43,6 +42,7 @@ require('./passport-config')  // require the passport configration file before i
 
 app.use(passport.initialize());  // before initializing we have to configer passpoet first
 app.use(passport.session());  //
+
 
 
 // view engine setup
@@ -89,6 +89,8 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+//test
 
 
 module.exports = app;
