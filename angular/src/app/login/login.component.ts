@@ -35,12 +35,13 @@ export class LoginComponent implements OnInit {
     // tslint:disable-next-line:triple-equals
     if (!this.loginForm.valid) {
            console.log('Invalid form details');
+           alert('Invalid form details');
            return;
     }
     // console.log(JSON.stringify(this.loginForm.value));
     this._user.login(JSON.stringify(this.loginForm.value))
     .subscribe(
-      data => { console.log(data); this._router.navigate(['/home']); } ,
+      data => { console.log(data); alert('LogIn success'); this._router.navigate(['/home']); } ,
       error => console.error(error)
     // tslint:disable-next-line:semicolon
     )

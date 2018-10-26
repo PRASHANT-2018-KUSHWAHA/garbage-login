@@ -12,6 +12,7 @@ import { UserService } from './user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ForgotUsernameComponent } from './forgot-username/forgot-username.component';
+import { NotifierModule } from 'angular-notifier';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ForgotUsernameComponent } from './forgot-username/forgot-username.compo
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NotifierModule
 
   ],
   providers: [UserService],  // servise is add here so that it can be accessable globaly

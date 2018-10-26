@@ -43,7 +43,7 @@ async function addToDb(req,res){
  */
 // custom callback from passport.js website
 
-router.post('/login',function(req,res,next){
+router.post('/login',isValidEmail,function(req,res,next){
   passport.authenticate('local', function(err, user, info) {
     if (err) { return res.status(501).json(err); }
     if (!user) { return res.status(501).json(info); }
@@ -114,6 +114,7 @@ router.post('/forgotUsername',isValidEmail, function(req, res, next) {
            
             let transporter = nodemailer.createTransport({
                 service: 'gmail',
+                hostname: 'smtp.gmail.com',
                 port: 25,
                 secure: false, // true for 465, false for other ports
                 auth: {
@@ -173,7 +174,8 @@ function isValidEmail(req,res,next){
                 resolve(data);
                 next();
             }else{
-                console.log("email is not register")
+                console.log("email is not register");
+                return res.status(501).json({message: 'user not registered'});                
                 reject();
             }
         }).catch('error')

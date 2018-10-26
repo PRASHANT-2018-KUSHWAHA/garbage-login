@@ -30,11 +30,13 @@ export class RegisterComponent implements OnInit {
     // tslint:disable-next-line:triple-equals
     if (!this.registerForm.valid || (this.registerForm.controls.password.value != this.registerForm.controls.cpassword.value)) {
            console.log('Invalid form details');
+           alert('Invalid form details');
            return;
     }
     this._userService.register(JSON.stringify(this.registerForm.value))
     .subscribe(data => {
       console.log(data);
+      alert('Register successfully');
       this._router.navigate(['/login']);
       },
        error => console.log(error)

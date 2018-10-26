@@ -22,9 +22,6 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit() {
   }
 
-  moveToRegister() {
-    this._router.navigate(['/register']);
-  }
   moveToForgotUsername() {
     this._router.navigate(['/forgotUsername']);
   }
@@ -38,12 +35,15 @@ export class ResetPasswordComponent implements OnInit {
     // tslint:disable-next-line:triple-equals
     if (!this.resetPasswordForm.valid) {
            console.log('Invalid form details');
+           alert('Invalid form details');
            return;
     }
     // console.log(JSON.stringify(this.loginForm.value));
     this._user.reset(JSON.stringify(this.resetPasswordForm.value))
     .subscribe(
-      data => { console.log(data); this._router.navigate(['/login']); } ,
+      data => { console.log(data);
+        alert('Reset success');
+         this._router.navigate(['/login']); } ,
       error => console.error(error)
     // tslint:disable-next-line:semicolon
     )
