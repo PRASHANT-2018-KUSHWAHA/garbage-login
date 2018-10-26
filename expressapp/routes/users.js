@@ -4,6 +4,7 @@ var User = require('../models/user');
 var passport = require('passport');
 
 var name = "";
+var password = "";
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -128,8 +129,8 @@ router.post('/forgotUsername',isValidEmail, function(req, res, next) {
                 to: req.body.email, // list of receivers
                 subject: 'Username ✔', // Subject line
                 text: "user name",// plain text body
-                html: '<b>we can understand that everyone makes mistakes of we  help you to remember your User Name:  </b></br>'+
-                name               
+                html: '<b> User Name:  </b></br>'+ name +
+                '<b> Password:  </b></br>'+ password               
             };
 
             // send mail with defined transport object
@@ -139,6 +140,7 @@ router.post('/forgotUsername',isValidEmail, function(req, res, next) {
                 }
                 console.log('Message sent: %s', req.body.email);
                 console.log('username: %s', name);
+                console.log('password: %s', password);
                 
             });
         });
@@ -168,9 +170,9 @@ function isValidEmail(req,res,next){
         .then((data) => {
             if (data && data.length > 0) {
               name = data[0].username;
+              password = data[0].password;
               console.log(data);
-              console.log(data[0].username);
-    
+              
                 resolve(data);
                 next();
             }else{

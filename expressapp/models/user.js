@@ -10,7 +10,8 @@ var schema = new Schema({
 });
 
 schema.statics.hashPassword = function hashPassword(password){
-    return bcrypt.hashSync(password,10);
+    return password;
+    
 }
 
 schema.methods.isValid = function(hashedpassword){
